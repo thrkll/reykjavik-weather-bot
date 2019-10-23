@@ -2,10 +2,18 @@
 
 import requests
 import logging
+from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
 from telegram.ext import (Updater, CommandHandler)
 
 logging.basicConfig(filename = 'reykjavik_weather_bot.log', filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
 logger = logging.getLogger(__name__)
+
+def start(update, context):
+    user = update.message.from_user
+    keyboard = [['/vedur', '/vedur a']]
+    update.message.reply_text(
+        'Reykjavík Weather Bot sendir nýjustu veðurathuganir í Reykjavík frá Veðurstofu Íslands.\n\n"/vedur" birtir einfaldar upplýsingar \n"/vedur a" birtir allar upplýsingar sem eru í boði.',
+        reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True, ))
 
 def vedur(update, context):
     user = update.message.from_user
@@ -60,8 +68,9 @@ def vedur(update, context):
         logger.info("%s bad um /vedur", user.username)
 
 def main():
-    updater = Updater("API_KEY", use_context=True)
+    updater = Updater("999337105:AAGyU3_w-r5R8aDX4shXko5_l0KDGz8tk1Q", use_context=True)
     dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("vedur", vedur))
     updater.start_polling()
     updater.idle()
