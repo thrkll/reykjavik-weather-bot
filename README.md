@@ -7,8 +7,7 @@ A simple Telegram bot in Python that tells the latest weather observations for R
 - Retrieves observational data from the manned synoptic station in Reykjavík.
 - Get simple weather observations with
 `/vedur`
-- Get all data available with
-`/vedur a`
+- Alternatively, push the button. 
 - The bot is live at [t.me/reykjavik_weather_bot](https://t.me/reykjavik_weather_bot).
 
 ## Requirements
@@ -18,7 +17,9 @@ A simple Telegram bot in Python that tells the latest weather observations for R
 
 ## Usage
 
-1. Replace "API_KEY" with Telegram API token.
+If you want to host the bot yourself:
+
+1. Replace "API_KEY" with a Telegram API token.
 
 2. Run reykjavik-weather-bot.
 
