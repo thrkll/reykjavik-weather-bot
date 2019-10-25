@@ -2,17 +2,18 @@
 
 import requests
 import logging
-from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
+from telegram import (ReplyKeyboardMarkup)
 from telegram.ext import (Updater, CommandHandler)
 
 logging.basicConfig(filename = 'reykjavik_weather_bot.log', filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
 logger = logging.getLogger(__name__)
 
+keyboard = [['/vedur']]
+
 def start(update, context):
     user = update.message.from_user
-    keyboard = [['/vedur', '/vedur a']]
     update.message.reply_text(
-        'Reykjavík Weather Bot sendir nýjustu veðurathuganir í Reykjavík frá Veðurstofu Íslands.\n\n"/vedur" birtir einfaldar upplýsingar \n"/vedur a" birtir allar upplýsingar sem eru í boði.',
+        'Reykjavík Weather Bot sendir nýjustu veðurathuganir í Reykjavík frá Veðurstofu Íslands.\n\nSendu /vedur eða smelltu á hnappinn til að birta veðurathuganir.',
         reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True, ))
 
 def vedur(update, context):
@@ -41,7 +42,7 @@ def vedur(update, context):
     if not not apis['R']: data.append(r)
     v = '\t\tSkyggni: ' + apis['V'] + ' m \n\n'
     if not not apis['V']: data.append(v)
-    n = '\t\tSkýjahula: ' + apis['N'] + ' % \n\n'
+    n = '\t\tSkýjahula: ' + apis['N'] + '% \n\n'
     if not not apis['N']: data.append(n)
     p = '\t\tLoftþrýstingur: ' + apis['P'] + ' hPa \n\n'
     if not not apis['P']: data.append(p)
@@ -58,17 +59,11 @@ def vedur(update, context):
     td = '\t\tDaggarmark: ' + apis['TD'] + '°C \n\n'
     if not not apis['TD']: data.append(td)
 
-    parameter = " ".join(context.args)
-
-    if parameter == 'a':
-        update.message.reply_text(' '.join(data))
-        logger.info("%s bad um /vedur a", user.username)
-    else:
-        update.message.reply_text(name + t + f + r)
-        logger.info("%s bad um /vedur", user.username)
+    update.message.reply_text(' '.join(data), reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True, ))
+    logger.info("%s bad um /vedur", user.username)
 
 def main():
-    updater = Updater("999337105:AAGyU3_w-r5R8aDX4shXko5_l0KDGz8tk1Q", use_context=True)
+    updater = Updater("API_KEY", use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("vedur", vedur))
