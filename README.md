@@ -1,6 +1,6 @@
 # 	reykjavik-weather-bot
 
-A simple Telegram bot in Python that tells the latest weather observations for Reykjavík.
+Telegram bot that tells the latest weather observations for Reykjavík.
 
 ## Features
 
