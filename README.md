@@ -8,7 +8,7 @@ Telegram bot that tells the latest weather observations for Reykjavík.
 - Get simple weather observations with
 `/vedur`
 - Alternatively, push the button. 
-- The bot is live at [t.me/reykjavik_weather_bot](https://t.me/reykjavik_weather_bot).
+- ~~The bot is live at [t.me/reykjavik_weather_bot](https://t.me/reykjavik_weather_bot)~~.
 
 ## Requirements
 
